@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vallportofolio.web.app/sitemap.xml
