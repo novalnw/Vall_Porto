@@ -1153,6 +1153,18 @@ section[id] { scroll-margin-top: 96px; }
   background: rgba(255, 255, 255, 0.03);
 }
 .chat-head-info { display: flex; align-items: center; gap: 10px; }
+.vera-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
+  animation: veraSpin 10s linear infinite;
+}
+.vera-avatar svg { width: 100%; height: 100%; display: block; }
+@keyframes veraSpin { to { transform: rotate(360deg); } }
 .chat-head-dot {
   width: 10px;
   height: 10px;
