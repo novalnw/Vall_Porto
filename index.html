@@ -62,71 +62,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=9" />
-  <style>
-    .testi-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 40px !important; max-width: 720px !important; margin: 0 auto !important; }
-    .testi-card { padding: 32px !important; }
-    .contact-actions { display: flex !important; justify-content: center !important; align-items: center !important; flex-wrap: wrap !important; gap: 14px !important; }
-    .contact-intro { text-align: center !important; }
-    .contact-loc { text-align: center !important; }
-    .project-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
-    .filter-btn { padding: 9px 20px; border-radius: 999px; border: 1px solid var(--card-border); background: transparent; color: var(--text-muted); font-weight: 600; font-size: .88rem; cursor: pointer; transition: all .2s; }
-    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
-    .filter-btn.active { background: #38bdf8; color: #0b0f1a; border-color: #38bdf8; box-shadow: 0 8px 24px rgba(56,189,248,.25); }
-    .to-top { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: #38bdf8; color: #0b0f1a; font-size: 1.4rem; border: none; cursor: pointer; z-index: 150; opacity: 0; visibility: hidden; transform: translateY(12px); transition: all .3s; box-shadow: 0 10px 26px rgba(56,189,248,.35); }
-    .to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
-    .to-top:hover { background: #5cc4fb; transform: translateY(-3px); }
-    .term-widget { max-width: 560px; margin: 36px auto 0; overflow: hidden; text-align: left; }
-    .term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: rgba(255,255,255,.06); border-bottom: 1px solid var(--card-border); font-family: ui-monospace, 'Courier New', monospace; font-size: .78rem; color: var(--text-muted); }
-    .term-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .term-dot.red { background: #ff5f56; } .term-dot.yellow { background: #ffbd2e; } .term-dot.green { background: #27c93f; }
-    .term-title { margin-left: 6px; }
-    .term-body { padding: 20px 22px; font-family: ui-monospace, 'Courier New', monospace; font-size: .9rem; line-height: 1.7; min-height: 210px; }
-    .term-prompt { color: #34d399; font-weight: 700; margin-right: 8px; }
-    .term-out { color: var(--text-muted); margin-left: 22px; }
-    .term-cursor { display: inline-block; width: 8px; height: 1em; background: var(--accent); margin-left: 2px; vertical-align: text-bottom; animation: blink .8s step-end infinite; }
-    ::selection { background: rgba(56,189,248,.35); color: #fff; }
-    ::-webkit-scrollbar { width: 10px; }
-    ::-webkit-scrollbar-track { background: #080808; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(#38bdf8,#a78bfa); border-radius: 10px; }
-    .footer { text-align: center !important; }
-    .footer p { text-align: center !important; }
-    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 12px; z-index: 120; }
-    .nav-toggle span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .4s cubic-bezier(.32,.72,0,1), opacity .3s; }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: translateX(-6px); }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    @media (max-width: 1080px) {
-      .nav-toggle { display: flex; }
-      .nav-links {
-        position: fixed; top: 84px; left: 16px; right: 16px;
-        flex-direction: column; align-items: stretch;
-        background: rgba(8,8,10,.92); backdrop-filter: blur(28px);
-        -webkit-backdrop-filter: blur(28px);
-        border: 1px solid var(--card-border);
-        border-radius: 1.6rem;
-        padding: 16px; gap: 6px;
-        box-shadow: 0 40px 90px rgba(0,0,0,.6);
-        transform: translateY(24px); opacity: 0; pointer-events: none;
-        transition: transform .5s cubic-bezier(.32,.72,0,1), opacity .4s cubic-bezier(.32,.72,0,1);
-      }
-      .nav-links li { opacity: 0; transform: translateY(12px); transition: opacity .4s cubic-bezier(.32,.72,0,1), transform .4s cubic-bezier(.32,.72,0,1); }
-      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-      .nav-links.open li { opacity: 1; transform: none; }
-      .nav-links.open li:nth-child(1) { transition-delay: .06s; }
-      .nav-links.open li:nth-child(2) { transition-delay: .11s; }
-      .nav-links.open li:nth-child(3) { transition-delay: .16s; }
-      .nav-links.open li:nth-child(4) { transition-delay: .21s; }
-      .nav-links.open li:nth-child(5) { transition-delay: .26s; }
-      .nav-links.open li:nth-child(6) { transition-delay: .31s; }
-      .nav-links a { display: block; text-align: center; padding: 13px; font-size: 1rem; }
-      .nav-cta { display: none; }
-    }
-    @media (min-width: 1081px) {
-      .nav-toggle { display: none !important; }
-      .nav-links { position: static; transform: none; opacity: 1; flex-direction: row; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css?v=10" />
 </head>
 <body>
 
@@ -163,7 +99,6 @@
     </nav>
   </header>
 
-  <!-- HERO -->
   <section class="hero" id="top">
     <div class="hero-video" id="heroVideoWrap">
       <video autoplay muted loop playsinline preload="auto" id="heroVideo">
@@ -205,7 +140,6 @@
     <a href="#about" class="scroll-hint" aria-label="Gulir ke bawah"><span></span></a>
   </section>
 
-  <!-- MARQUEE -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
       <span class="mq-item"><img class="mq-icon" src="images/logos/react.svg" alt="React" />React</span>
@@ -231,7 +165,6 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
   <section class="section" id="about">
     <div class="container">
       <h2 class="section-title reveal">Tentang <span class="grad-text">Saya</span></h2>
@@ -288,7 +221,6 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section class="section" id="skills">
     <div class="container">
       <h2 class="section-title reveal">Keahlian <span class="grad-text">Skills</span></h2>
@@ -337,7 +269,6 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
   <section class="section" id="education">
     <div class="container">
       <h2 class="section-title reveal">Riwayat <span class="grad-text">Pendidikan</span></h2>
@@ -394,7 +325,6 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section class="section" id="projects">
     <div class="container">
       <h2 class="section-title reveal" data-scramble>Project</h2>
@@ -407,7 +337,7 @@
       </div>
       <div class="cards-grid" id="projectGrid">
         <article class="card project-card glass reveal" data-category="web">
-          <img class="project-thumb" src="images/foto1.png" alt="Screenshot E-Dokter" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto1.png" alt="Screenshot E-Dokter" />
           <div class="project-body">
             <h3>E-Dokter</h3>
             <p>Platform layanan kesehatan untuk manajemen janji temu medis yang responsif.</p>
@@ -416,7 +346,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-1" data-category="erp">
-          <img class="project-thumb" src="images/foto2v4.png" alt="Screenshot Project ERP" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto2v4.png" alt="Screenshot Project ERP" />
           <div class="project-body">
             <h3>Project ERP</h3>
             <p>B2B SaaS Enterprise Resource Planning (ERP) Platform Full-Stack ERP &amp; Inventory Management System.</p>
@@ -425,7 +355,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-2" data-category="web">
-          <img class="project-thumb" src="images/foto3.png" alt="Screenshot Vall Food" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto3.png" alt="Screenshot Vall Food" />
           <div class="project-body">
             <h3>Vall Food</h3>
             <p>Sistem Manajemen Pemesanan Makanan Berbasis Web.</p>
@@ -434,7 +364,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-3" data-category="web">
-          <img class="project-thumb" src="images/foto4.png" alt="Screenshot Vall Store" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto4.png" alt="Screenshot Vall Store" />
           <div class="project-body">
             <h3>Vall Store</h3>
             <p>Sistem Manajemen E-Commerce untuk Penjualan Sepatu.</p>
@@ -443,7 +373,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-4" data-category="web">
-          <img class="project-thumb" src="images/foto6.png" alt="Screenshot Vall Coffee" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto6.png" alt="Screenshot Vall Coffee" />
           <div class="project-body">
             <h3>Vall Coffee</h3>
             <p>Website kedai kopi KOPI &amp; RASA dengan menu interaktif, keranjang, dan pembayaran QRIS.</p>
@@ -452,7 +382,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-4" data-category="data">
-          <img class="project-thumb" src="images/foto5.png" alt="Screenshot Vall Project Analyst" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto5.png" alt="Screenshot Vall Project Analyst" />
           <div class="project-body">
             <h3>Vall Project Analyst</h3>
             <p>Aplikasi analisis proyek untuk manajemen dan pelacakan proyek.</p>
@@ -461,7 +391,7 @@
           </div>
         </article>
         <article class="card project-card glass reveal delay-4" data-category="ai">
-          <img class="project-thumb" src="images/foto-plate.jpg" alt="Screenshot Deteksi Plat Nomor" />
+          <img class="project-thumb" loading="lazy" decoding="async" src="images/foto-plate.jpg" alt="Screenshot Deteksi Plat Nomor" />
           <div class="project-body">
             <h3>Deteksi Plat Nomor</h3>
             <p>Aplikasi web pendeteksi &amp; pembaca plat nomor kendaraan menggunakan OCR (EasyOCR). Mendukung upload gambar maupun kamera langsung, tersedia mode gelap/terang.</p>
@@ -473,7 +403,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
   <section class="section" id="testimonials">
     <div class="container">
       <h2 class="section-title reveal">Kata <span class="grad-text">Mereka</span></h2>
@@ -494,7 +423,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="container">
       <div class="contact-card glass">
@@ -522,6 +450,24 @@
 
   <button class="to-top" id="toTop" aria-label="Kembali ke atas">↑</button>
 
-  <script src="script.js?v=9"></script>
+  <button class="chat-fab" id="chatFab" aria-label="AI pendamping">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-head">
+      <div class="chat-head-info">
+        <span class="chat-head-dot"></span>
+        <span class="chat-title">AI Pendamping</span>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Tutup chat">&times;</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-inputrow">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Tanya apa aja..." autocomplete="off" />
+      <button class="btn btn-small btn-primary chat-send" id="chatSend">Kirim</button>
+    </div>
+  </div>
+
+  <script src="script.js?v=10"></script>
 </body>
 </html>

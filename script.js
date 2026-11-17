@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     heroVideo.play().catch(() => {});
   }
 
-  /* ---- Preloader ---- */
   const preloader = document.getElementById('preloader');
   if (preloader) {
     window.addEventListener('load', () => {
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => preloader.classList.add('hidden'), 3000);
   }
 
-  /* ---- Navbar mobile ---- */
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => {
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   );
 
-  /* ---- Starfield canvas ---- */
   const canvas = document.getElementById('stars');
   const ctx = canvas ? canvas.getContext('2d') : null;
   let stars = [];
@@ -119,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   drawStars();
 
-  /* ---- Bubble effects (click/tap) ---- */
   function spawnBubble(x, y) {
     return {
       x: x + (Math.random() - 0.5) * 70,
@@ -158,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     spawnSparks(e.clientX, e.clientY);
   });
 
-  /* ---- Cursor glow ---- */
   const glow = document.getElementById('cursorGlow');
   if (glow) {
     let gx = innerWidth / 2, gy = innerHeight / 2, tx = gx, ty = gy;
@@ -175,7 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
   }
 
-  /* ---- Typewriter ---- */
   const roles = ['Full Stack Web Developer', 'UI/UX Enthusiast', 'Data & GIS Analyst', 'Problem Solver'];
   const twEl = document.getElementById('typewriter');
   if (twEl) {
@@ -197,7 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
     type();
   }
 
-  /* ---- Reveal on scroll ---- */
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(
     (entries) => entries.forEach((e) => {
@@ -207,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   revealEls.forEach((el) => io.observe(el));
 
-  /* ---- Animated counters ---- */
   const counters = document.querySelectorAll('.stat-num[data-target]');
   const counterIO = new IntersectionObserver(
     (entries) => entries.forEach((entry) => {
@@ -228,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   counters.forEach((c) => counterIO.observe(c));
 
-  /* ---- 3D tilt + glare on cards ---- */
   const tiltCards = document.querySelectorAll('.project-card, .testi-card, .about-card, .skill-group');
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     tiltCards.forEach((card) => {
@@ -247,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---- Magnetic buttons ---- */
   const magBtns = document.querySelectorAll('.btn');
   if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
     magBtns.forEach((btn) => {
@@ -265,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---- Project filter ---- */
   const filterBtns = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('#projectGrid .project-card');
   filterBtns.forEach((btn) =>
@@ -280,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   );
 
-  /* ---- Terminal typing ---- */
   const termBody = document.getElementById('terminalBody');
   if (termBody) {
     const lines = Array.from(termBody.querySelectorAll('.term-line'));
@@ -329,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
     termIO.observe(termBody);
   }
 
-  /* ---- Text scramble ---- */
   const scrambleEls = document.querySelectorAll('[data-scramble]');
   const scrambleChars = '!<>-_\\/[]{}—=+*^?#________';
   scrambleEls.forEach((el) => {
@@ -357,12 +344,120 @@ document.addEventListener('DOMContentLoaded', () => {
     scrIO.observe(el);
   });
 
-  /* ---- Back to top ---- */
+  const navbar = document.getElementById('navbar');
+  const spySections = ['about', 'skills', 'education', 'projects', 'testimonials', 'contact']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+  const spyIO = new IntersectionObserver(
+    (entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      navLinks.querySelectorAll('a').forEach((a) =>
+        a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)
+      );
+    }),
+    { rootMargin: '-40% 0px -55% 0px' }
+  );
+  spySections.forEach((s) => spyIO.observe(s));
+
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
+
   const toTop = document.getElementById('toTop');
   if (toTop) {
     window.addEventListener('scroll', () => {
       toTop.classList.toggle('show', window.scrollY > 500);
     });
     toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  /* ---- AI chat widget ---- */
+  const chatFab = document.getElementById('chatFab');
+  const chatPanel = document.getElementById('chatPanel');
+  const chatClose = document.getElementById('chatClose');
+  const chatBody = document.getElementById('chatBody');
+  const chatInput = document.getElementById('chatInput');
+  const chatSend = document.getElementById('chatSend');
+
+  if (chatFab && chatPanel) {
+    const CHAT_WORKER = 'https://YOUR-WORKER-subdomain.workers.dev';
+    const CHAT_SYSTEM =
+      'Kamu adalah AI pendamping untuk portofolio M. Noval Nur Wakhid (Vall), ' +
+      'Full Stack Web Developer dari Sidoarjo, Jawa Timur, Indonesia. ' +
+      'Jawab dengan ramah, ringkas, dan dalam Bahasa Indonesia. ' +
+      'Fakta tentang Noval: lulusan Sistem Informasi Universitas Nahdlatul Ulama ' +
+      'Sidoarjo (2022-2026); skill: React, PHP, Tailwind, Node.js, Supabase, ' +
+      'JavaScript, REST API, Power BI, QGIS, GeoDa, Pentaho, Python, Streamlit, ' +
+      'EasyOCR, Linux, keamanan sistem, UI design, Git/GitHub. ' +
+      'Project: E-Dokter, Project ERP, Vall Food, Vall Store, Vall Coffee, ' +
+      'Vall Project Analyst, Deteksi Plat Nomor. ' +
+      'Kontak: novalnurwakhid151@gmail.com dan WhatsApp 6287825677105. ' +
+      'Kalau ditanya hal di luar itu, arahkan untuk menghubungi melalui email/WhatsApp.';
+
+    function addMsg(role, text) {
+      const el = document.createElement('div');
+      el.className = 'chat-msg ' + role;
+      el.textContent = text;
+      chatBody.appendChild(el);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function typingEl() {
+      const wrap = document.createElement('div');
+      wrap.className = 'chat-msg bot';
+      wrap.innerHTML = '<span class="chat-typing"><span></span><span></span><span></span></span>';
+      chatBody.appendChild(wrap);
+      chatBody.scrollTop = chatBody.scrollHeight;
+      return wrap;
+    }
+
+    async function ask(messages) {
+      const res = await fetch(CHAT_WORKER + '/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ system: CHAT_SYSTEM, messages })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.reply) {
+        throw new Error(data.error || 'Gagal terhubung ke AI.');
+      }
+      return data.reply;
+    }
+
+    async function send() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      addMsg('user', text);
+      const typing = typingEl();
+      try {
+        const reply = await ask(chatHistory.concat([{ role: 'user', content: text }]));
+        chatHistory.push({ role: 'user', content: text }, { role: 'assistant', content: reply });
+        typing.remove();
+        addMsg('bot', reply);
+      } catch (err) {
+        typing.remove();
+        addMsg('bot', err.message);
+      }
+      chatInput.focus();
+    }
+
+    const chatHistory = [
+      { role: 'assistant', content: 'Halo! Aku AI pendamping Vall. Mau tanya soal skill, project, atau kontak?' }
+    ];
+    addMsg('bot', chatHistory[0].content);
+
+    chatFab.addEventListener('click', () => {
+      chatPanel.classList.add('open');
+      chatInput.focus();
+      chatBody.scrollTop = chatBody.scrollHeight;
+    });
+    chatClose.addEventListener('click', () => chatPanel.classList.remove('open'));
+    chatSend.addEventListener('click', send);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') send();
+    });
   }
 });
