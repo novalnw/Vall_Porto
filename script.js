@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (chatFab && chatPanel) {
     const CHAT_WORKER = 'https://vall-chat-worker.novalnurwakhid151.workers.dev';
     const CHAT_SYSTEM =
-      'Kamu adalah VERA, AI pendamping untuk portofolio M. Noval Nur Wakhid (Vall), ' +
+      'Kamu adalah Vesper, AI pendamping untuk portofolio M. Noval Nur Wakhid (Vall), ' +
       'Full Stack Web Developer dari Sidoarjo, Jawa Timur, Indonesia. ' +
       'Jawab dengan ramah, ringkas, dan dalam Bahasa Indonesia. ' +
       'Fakta tentang Noval: lulusan Sistem Informasi Universitas Nahdlatul Ulama ' +
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const chatHistory = [
-      { role: 'assistant', content: 'Halo! Aku VERA, AI pendamping Vall. Mau tanya soal skill, project, atau kontak?' }
+      { role: 'assistant', content: 'Halo! Aku Vesper, AI pendamping Vall. Mau tanya soal skill, project, atau kontak?' }
     ];
     addMsg('bot', chatHistory[0].content);
 
