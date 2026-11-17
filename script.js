@@ -382,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatSend = document.getElementById('chatSend');
 
   if (chatFab && chatPanel) {
-    const CHAT_WORKER = 'https://YOUR-WORKER-subdomain.workers.dev';
+    const CHAT_WORKER = 'https://vall-porto.novalnurwakhid151.workers.dev';
     const CHAT_SYSTEM =
       'Kamu adalah AI pendamping untuk portofolio M. Noval Nur Wakhid (Vall), ' +
       'Full Stack Web Developer dari Sidoarjo, Jawa Timur, Indonesia. ' +
